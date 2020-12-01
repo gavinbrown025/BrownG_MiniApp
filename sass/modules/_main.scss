@@ -1,0 +1,43 @@
+body{
+    background-color: $bg-color;
+    min-width: 350px;
+    overflow-x: hidden;
+}
+
+main {
+    font-family: $paragraph;
+    color: $main-text-color;
+}
+a {
+    text-decoration: none;
+    font-family: $sans-serif;
+    color: white;
+}
+
+h1 {
+    color: $main-text-color;
+    font-family:$header-text;
+    font-size: 3.5rem;
+}
+
+h2{
+    color: $main-text-color; 
+    font-family:$header-text; 
+    font-size: 2.5rem;
+
+}
+
+p {
+    font-family: $paragraph;
+    font-size: 1rem;
+    line-height: 2rem;
+}
+
+
+footer {
+    background-color: #000;
+    height: 100px; 
+}
+
+.hidden{display:none !important;}
+.showFlex{display: flex;}
