@@ -7,7 +7,7 @@ import{fetchData} from "./components/DataMiner.js";
         data: {
             showCurrentModel: false,
             models: [],
-            currentModelData: {}
+            currentModel: {}
         },
 
         // this is the "mounted" lifecycle hook. Vue is done creating itself, and has attached itself to the "app" div on the page
@@ -19,46 +19,35 @@ import{fetchData} from "./components/DataMiner.js";
                     data.forEach(model => this.models.push(model));
                 })
                 .catch(err => console.error(err));
-            
-            console.log(this.models);
 
         },
 
         //! run a method when we change our view (update the DOM with Vue)
         updated: function () {
-            console.log(this.models);
+            console.log("updated current model to", this.currentModel.name, this.currentModel);
         },
 
         methods: {  //! generic functions go here
-            logClicked() {
-                console.log("clicked on a list item");
-            },
 
              playVideo(){
-            //     this.$refs.mainVideo.play();
+                let mainVideo = this.$refs.mainVideo;
+                mainVideo.play();
              },
 
-            showProfData(target) {
-                console.log('clicked to view prof bio data', target, target.name);
+            showModelData(target) {
+                console.log('clicked to view specs for', target.name, target);
                 
+                this.showCurrentModel = this.showCurrentModel ? false : true;
+
+                this.currentModel = target;
+            }, 
+
+            showNextModel(direction) {
+                let nextModel = parseInt(this.currentModel.id) + direction;
+                if (nextModel > 4) {nextModel = 1}
+                if (nextModel < 1) {nextModel = 4}
                 
-                //* the "this" keyword inside a vue instance REFERS to the Vue instance itself by default
-
-                //* toggle the property between true and false using a ternary statement
-                this.showBioData = this.showBioData ? false : true;
-
-                //* make the selected prof's data visible
-                this.currentProfData = target;
-            },
-
-            removeProf(target) {
-                //* remove this prof from the professors array
-                console.log('clicked to remove prof', target, target.name);
-                //* the "this" keyword inside a vue instance REFERS to the Vue instance itself by default
-
-                //* make the selected prof's data visible
-                //* this.professors.splice(this.professors.indexOf(target), 1);
-                this.$delete(this.professors, target);
+                this.currentModel = this.models[nextModel];
             }
         },
 

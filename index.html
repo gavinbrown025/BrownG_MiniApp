@@ -17,7 +17,7 @@
 <body>
 	<main id="app">		
 		
-		<section  @mouseover="playVideo" class="landing">
+		<section v-on:mouseover='playVideo' class="landing">
 			<nav>
 				<a href="index.html" class="logo">
 					<img src="images/logo.png" alt="">
@@ -29,7 +29,7 @@
 				<a href="">PRE-OWNED</a>
 			</nav>
 
-			<video ref="mainVideo" class="bg-video" src="video/JCWorks.mp4" autoplay loop alt="Title Video"></video>
+			<video ref="mainVideo" class="bg-video" src="video/JCWorks.mp4" alt="Title Video" loop></video>
 			
 			<div class="landing-overlay"></div>
 			
@@ -51,61 +51,39 @@
 			</div>
 
 			<div class="selection-con">
-				<div class="selection">
-					<p>model.name</p>
-					<div class="trigger-con">
-						<div class="trigger"></div>
-					</div>				
-				</div>
 
-				<div class="selection">
-					<p>model.name</p>
-					<div class="trigger-con">
-						<div class="trigger"></div>
-					</div>				
-				</div>
-
-				<div class="selection">
-					<p>model.name</p>
-					<div class="trigger-con">
+				<div @click="showModelData(model)" v-for="model in models" class="selection">
+					<p>{{ model.name }}</p>
+					<div class="trigger-con" >
 						<div class="trigger"></div>
 					</div>
 				</div>
 
-				<div class="selection">
-					<p>model.name</p>
-					<div class="trigger-con">
-						<div class="trigger"></div>
-					</div>				
-				</div>
-
 			</div>
 
-			<div class="overlay-con">
+			<div class="overlay-con" :class="{'showFlex' : showCurrentModel}">
 				<div class="overlay-info">
-					<h2>THE MINI JOHN COOPER WORKS model.name</h2>
+					<h2>THE MINI JOHN COOPER WORKS {{currentModel.name}}</h2>
 					<div class="details">
 						<h3>THE DETAILS.</h3>
 						<ul>
-							<li>model.detail[0]</li>
-							<li>model.detail[1]</li>
-							<li>model.detail[2]</li>
+							<li v-for="item in currentModel.details">{{item}}</li>
 						</ul>
 					</div>
 					<div class="spec-con">
 						<div class="spec acc">
 							<p>ACCELLERATION</p>
-							<P>0-100 km/h: model.acceleration</P>
+							<P>0-100 km/h: {{currentModel.acceleration}}</P>
 							<img src="images/svg/3doorACC.svg" alt="">
 						</div>
 						<div class="spec hp">
 							<p>HORSEPOWER</p>
-							<P>model.horsepower</P>
+							<P>{{currentModel.horsepower}}</P>
 							<img src="images/svg/3doorHP.svg" alt="">
 						</div>
 						<div class="spec tq">
 							<p>TORQUE</p>
-							<p>model.torque</p>
+							<p>{{currentModel.torque}}</p>
 							<img src="images/svg/3doorTQ.svg" alt="">
 						</div>
 					</div>
@@ -115,15 +93,14 @@
 						<a href="">BOOK A TEST DRIVE</a>
 					</div>
 					<div class="car-nav">
-						<a href="">PREVIOUS</a>
-						<p>model.id of 4</p>
-						<a href="">NEXT</a>
+						<a @click.prevent="showNextModel(-2)" href="">PREVIOUS</a>
+						<p>{{currentModel.id}} of 4</p>
+						<a  @click.prevent="showNextModel(0)" href="">NEXT</a>
 					</div>
 				</div>
-				
-				<img class="overlay-img" src="images/convertible.png" alt="">
+				<img class="overlay-img" :src="'images/' + currentModel.image" alt="">
 
-				<span class="close">+</span>
+				<span @click='showModelData' class="close">+</span>
 
 			</div>
 
