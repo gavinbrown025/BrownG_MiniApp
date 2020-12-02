@@ -63,7 +63,7 @@
 					<div class="details">
 						<h3>THE DETAILS.</h3>
 						<ul>
-							<li>{{currentModel.details[0]}}</li>
+							<li v-for="item in currentModel.details">{{item}}</li>
 						</ul>
 					</div>
 					<div class="spec-con">
