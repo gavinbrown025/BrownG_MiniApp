@@ -1,3 +1,5 @@
+<img src="images/logo.png" alt="MINI Logo">
+
 # MINI COOPER CANADA 
 
 ## See the 2020 John Cooper Works Series
