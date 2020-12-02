@@ -1,6 +1,21 @@
 import{fetchData} from "./components/DataMiner.js"; 
+import Trigger from "./components/ModelTrigger.js";
 
 (() => {
+
+    // Vue.component("model-trigger", {
+
+    //     props: ["model"],
+
+    //     template: 
+    //     `<div class="selection">
+	// 		<p>{{model.name}}</p>
+	// 		<div class="trigger-con" >
+	// 		    <div class="trigger"></div>
+    //         </div>
+    //     </div> `
+    // });
+
 
     let vue_vm = new Vue({
 
@@ -16,15 +31,17 @@ import{fetchData} from "./components/DataMiner.js";
 
             fetchData("./includes/index.php")
                 .then(data => {
-                    data.forEach(model => this.models.push(model));
+                    data.forEach(model => {
+                        this.models.push(model);
+                    });
                 })
                 .catch(err => console.error(err));
 
-        },
+            },
+            
+            //! run a method when we change our view (update the DOM with Vue)
+            updated: function () {
 
-        //! run a method when we change our view (update the DOM with Vue)
-        updated: function () {
-            console.log("updated current model to", this.currentModel.name, this.currentModel);
         },
 
         methods: {  //! generic functions go here
@@ -35,26 +52,26 @@ import{fetchData} from "./components/DataMiner.js";
              },
 
             showModelData(target) {
-                console.log('clicked to view specs for', target.name, target);
-                
                 this.showCurrentModel = this.showCurrentModel ? false : true;
-
                 this.currentModel = target;
             }, 
 
             showNextModel(direction) {
                 let nextModel = parseInt(this.currentModel.id) + direction;
-                if (nextModel > 4) {nextModel = 1}
-                if (nextModel < 1) {nextModel = 4}
+                if (nextModel > 3){nextModel = 0}
+                if (nextModel < 0){nextModel = 3}
                 
                 this.currentModel = this.models[nextModel];
             }
-        },
+        }, 
 
-        components: {}
+        components: {
+            "model-trigger": Trigger
+        }
     
     
     }).$mount("#app");
+
 
 
 })();

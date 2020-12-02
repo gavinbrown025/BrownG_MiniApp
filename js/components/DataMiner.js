@@ -25,7 +25,6 @@ async function fetchData(sourceURL) {
 }
 
 async function postData(sourceURL) {
-
     return "You are using the postData API endpoint";
 }
 
